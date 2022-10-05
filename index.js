@@ -26,7 +26,7 @@ convertBTN.addEventListener("click", getExchangeRates);
 async function getExchangeRates() {
   try {
     const curResponse = await fetch(
-      "http://api.nbp.pl/api/exchangerates/tables/A/"
+      "https://api.nbp.pl/api/exchangerates/tables/A/"
     );
     const finaleCurResponse = await curResponse.json();
     const allRatesArr = finaleCurResponse[0].rates;
