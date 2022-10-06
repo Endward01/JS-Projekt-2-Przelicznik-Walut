@@ -1,19 +1,11 @@
-const optEUR = document.querySelector(".option-eur");
-const optUSD = document.querySelector(".option-usd");
-const optCHF = document.querySelector(".option-chf");
 const selectCUR = document.querySelector(".select-currancy");
 const convertBTN = document.querySelector(".btn");
 const inptValue = document.querySelector(".input");
 const h4 = document.querySelector(".h4");
+convertBTN.addEventListener("click", loadRate);
 
-function findObj(arr, key, val) {
-  for (var i = 0; i < arr.length; i++) {
-    if (arr[i][key] === val) {
-      return arr[i];
-    }
-  }
-  return null;
-}
+loadList()
+
 async function check(e) {
   return (code = e.value);
 }
@@ -21,32 +13,64 @@ function makeMagic(a, b) {
   return (a * b).toFixed(2);
 }
 
-convertBTN.addEventListener("click", loader);
-function loader() {
+async function loadList() {
   document.querySelector(".loader-outer").classList.remove("hidden");
   document.querySelector(".loader-outer").classList.add("d-flex");
-  setTimeout(() => {
-    getExchangeRates();
+
+  await getExchangeRates();
+
+  document.querySelector(".loader-outer").classList.add("hidden");
+  document.querySelector(".loader-outer").classList.remove("d-flex");
+}
+
+async function loadRate(){
+    document.querySelector(".loader-outer").classList.remove("hidden");
+    document.querySelector(".loader-outer").classList.add("d-flex");
+  
+    await getSpecificRate();
+  
     document.querySelector(".loader-outer").classList.add("hidden");
     document.querySelector(".loader-outer").classList.remove("d-flex");
-  }, 2000);
 }
 
 async function getExchangeRates() {
   try {
-    const curResponse = await fetch(
-      "https://api.nbp.pl/api/exchangerates/tables/A/"
-    );
-    const finaleCurResponse = await curResponse.json();
-    const allRatesArr = finaleCurResponse[0].rates;
+    const data = await fetch("https://api.nbp.pl/api/exchangerates/tables/A/");
+    const dataJson = await data.json();
+    const allRatesArr = dataJson[0].rates;
+    console.table(allRatesArr);
+    for (let i = 0; i < allRatesArr.length; i++) {
+      const option = document.createElement("option");
+      option.setAttribute("value", `${allRatesArr[i].code}`);
+      option.classList.add("option");
+      option.classList.add("option-" + `${allRatesArr[i].code}`);
+      option.textContent =
+        `${allRatesArr[i].code}` + " (" + `${allRatesArr[i].currency}` + ")";
+      document.querySelector(".select-currancy").appendChild(option);
+      // return selectCUR;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+}
+
+async function getSpecificRate() {
+  try {
     let code = await check(selectCUR);
-    let rate = findObj(allRatesArr, "code", code);
+    const data = await fetch(
+      "https://api.nbp.pl/api/exchangerates/rates/A/" + `${code}` + "/"
+    );
+    const dataJson = await data.json();
+    console.table(dataJson);
+    const rateCurr = dataJson.rates[0];
+    console.table(rateCurr)
+    // let rate = findObj(allRatesArr, "code", code);
     h4.textContent =
       `${inptValue.valueAsNumber.toFixed(2)}` +
       " " +
-      `${rate.code}` +
+      `${code}` +
       " to " +
-      `${makeMagic(inptValue.value, rate.mid)}` +
+      `${makeMagic(inptValue.value, rateCurr.mid)}` +
       " PLN";
   } catch (error) {
     console.error(error);
