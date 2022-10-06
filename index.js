@@ -4,7 +4,7 @@ const inptValue = document.querySelector(".input");
 const h4 = document.querySelector(".h4");
 convertBTN.addEventListener("click", loadRate);
 
-loadList()
+loadList();
 
 async function check(e) {
   return (code = e.value);
@@ -12,7 +12,6 @@ async function check(e) {
 function makeMagic(a, b) {
   return (a * b).toFixed(2);
 }
-
 async function loadList() {
   document.querySelector(".loader-outer").classList.remove("hidden");
   document.querySelector(".loader-outer").classList.add("d-flex");
@@ -22,17 +21,15 @@ async function loadList() {
   document.querySelector(".loader-outer").classList.add("hidden");
   document.querySelector(".loader-outer").classList.remove("d-flex");
 }
+async function loadRate() {
+  document.querySelector(".loader-outer").classList.remove("hidden");
+  document.querySelector(".loader-outer").classList.add("d-flex");
 
-async function loadRate(){
-    document.querySelector(".loader-outer").classList.remove("hidden");
-    document.querySelector(".loader-outer").classList.add("d-flex");
-  
-    await getSpecificRate();
-  
-    document.querySelector(".loader-outer").classList.add("hidden");
-    document.querySelector(".loader-outer").classList.remove("d-flex");
+  await getSpecificRate();
+
+  document.querySelector(".loader-outer").classList.add("hidden");
+  document.querySelector(".loader-outer").classList.remove("d-flex");
 }
-
 async function getExchangeRates() {
   try {
     const data = await fetch("https://api.nbp.pl/api/exchangerates/tables/A/");
@@ -47,13 +44,12 @@ async function getExchangeRates() {
       option.textContent =
         `${allRatesArr[i].code}` + " (" + `${allRatesArr[i].currency}` + ")";
       document.querySelector(".select-currancy").appendChild(option);
-      // return selectCUR;
     }
   } catch (error) {
     console.error(error);
+    window.alert("Oh something went wrong, please try again (check consol for more information)");
   }
 }
-
 async function getSpecificRate() {
   try {
     let code = await check(selectCUR);
@@ -63,8 +59,7 @@ async function getSpecificRate() {
     const dataJson = await data.json();
     console.table(dataJson);
     const rateCurr = dataJson.rates[0];
-    console.table(rateCurr)
-    // let rate = findObj(allRatesArr, "code", code);
+    console.table(rateCurr);
     h4.textContent =
       `${inptValue.valueAsNumber.toFixed(2)}` +
       " " +
@@ -74,5 +69,6 @@ async function getSpecificRate() {
       " PLN";
   } catch (error) {
     console.error(error);
+    window.alert("Oh something went wrong, please try again (check consol for more information)");
   }
 }

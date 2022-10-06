@@ -13,7 +13,6 @@ button,
   text-align: center;
   padding: 10px 0;
 }
-
 .btn {
   background-color: #2b2b2b;
   color: white;
@@ -38,7 +37,6 @@ button,
   border: unset;
   margin: 5px 0;
 }
-
 .hidden {
   display: none;
 }
@@ -79,7 +77,6 @@ button,
   text-decoration: none;
   color: rgba(211, 211, 211, 0.8);
 }
-
 @media screen and (min-width: 575px) {
   .main-input {
     max-width: 460px;
