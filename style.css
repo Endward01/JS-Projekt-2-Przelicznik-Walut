@@ -17,7 +17,7 @@ button,
 .btn {
   background-color: #2b2b2b;
   color: white;
-  margin: 5px;
+  margin: 5px 0;
 }
 .btn:hover {
   background-color: #181818;
@@ -36,13 +36,13 @@ button,
   background-color: #2b2b2b;
   color: white;
   border: unset;
-  margin: 5px;
+  margin: 5px 0;
 }
 .hidden{
     display: none;
 }
 .loader-outer{
-    transform: translateX(22.5%);
+    /* transform: translateX(22.5%); */
     top:0;
     position: absolute;
     background: rgba(29, 29, 29, .85);
@@ -64,7 +64,7 @@ button,
   }
 .signature {
   font-size: 12px;
-  opacity: 0.075;
+  opacity: 0.05;
   margin: 10px;
   position: absolute;
   left: 0;
