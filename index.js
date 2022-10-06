@@ -30,10 +30,8 @@ function loader() {
     document.querySelector(".loader-outer").classList.add("hidden");
     document.querySelector(".loader-outer").classList.remove("d-flex");
   }, 2000);
-  // getExchangeRates()
-  // document.querySelector(".loader-outer").classList.add("hidden");
-  // document.querySelector(".loader-outer").classList.remove("d-flex");
 }
+
 async function getExchangeRates() {
   try {
     const curResponse = await fetch(
