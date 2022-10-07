@@ -5,17 +5,18 @@ p,
 input,
 button,
 .h4,
-.h1 {
+.h1,
+.btn,
+.input,
+.select-currancy {
   color: white;
 }
 .h4 {
   height: 50px;
-  text-align: center;
-  padding: 10px 0;
+  padding: 10px;
 }
 .btn {
   background-color: #2b2b2b;
-  color: white;
   margin: 5px 0;
 }
 .btn:hover {
@@ -33,7 +34,6 @@ button,
   padding-left: 1rem;
   border-radius: 0.5rem;
   background-color: #2b2b2b;
-  color: white;
   border: unset;
   margin: 5px 0;
 }

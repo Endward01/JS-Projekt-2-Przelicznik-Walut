@@ -1,8 +1,6 @@
-const selectCUR = document.querySelector(".select-currancy");
-const convertBTN = document.querySelector(".btn");
 const inptValue = document.querySelector(".input");
-const h4 = document.querySelector(".h4");
-convertBTN.addEventListener("click", loadRate);
+
+document.querySelector(".btn").addEventListener("click", loadRate);
 
 loadList();
 
@@ -52,7 +50,7 @@ async function getExchangeRates() {
 }
 async function getSpecificRate() {
   try {
-    let code = await check(selectCUR);
+    let code = await check(document.querySelector(".select-currancy"));
     const data = await fetch(
       "https://api.nbp.pl/api/exchangerates/rates/A/" + `${code}` + "/"
     );
@@ -60,7 +58,7 @@ async function getSpecificRate() {
     console.table(dataJson);
     const rateCurr = dataJson.rates[0];
     console.table(rateCurr);
-    h4.textContent =
+    document.querySelector(".h4").textContent =
       `${inptValue.valueAsNumber.toFixed(2)}` +
       " " +
       `${code}` +
