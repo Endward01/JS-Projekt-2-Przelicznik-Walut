@@ -64,19 +64,6 @@ button,
     transform: rotate(720deg);
   }
 }
-.signature {
-  font-size: 12px;
-  opacity: 0.05;
-  margin: 10px;
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  color: rgba(211, 211, 211, 0.6);
-}
-.signature a {
-  text-decoration: none;
-  color: rgba(211, 211, 211, 0.8);
-}
 @media screen and (min-width: 575px) {
   .main-input {
     max-width: 460px;
