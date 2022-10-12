@@ -33,7 +33,6 @@ async function getExchangeRates() {
     const data = await fetch("https://api.nbp.pl/api/exchangerates/tables/A/");
     const dataJson = await data.json();
     const allRatesArr = dataJson[0].rates;
-    console.table(allRatesArr);
     for (let i = 0; i < allRatesArr.length; i++) {
       const option = document.createElement("option");
       option.setAttribute("value", `${allRatesArr[i].code}`);
@@ -55,9 +54,7 @@ async function getSpecificRate() {
       "https://api.nbp.pl/api/exchangerates/rates/A/" + `${code}` + "/"
     );
     const dataJson = await data.json();
-    console.table(dataJson);
     const rateCurr = dataJson.rates[0];
-    console.table(rateCurr);
     document.querySelector(".h4").textContent =
       `${inptValue.valueAsNumber.toFixed(2)}` +
       " " +
