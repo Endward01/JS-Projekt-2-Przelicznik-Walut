@@ -6,9 +6,12 @@ document.querySelector(".btn").addEventListener("click", loadRate);
 
 loadList();
 
-async function checkValue(e) {
-  return (code = e.value);
-}
+inptValue.addEventListener("keypress", (e) => {
+  if (!(e.charCode > 45 && e.charCode < 58)) {
+    e.preventDefault();
+  }
+});
+
 function multiplyValue(a, b) {
   return (a * b).toFixed(2);
 }
@@ -16,7 +19,7 @@ async function loadList() {
   loaderClass.remove("hidden");
   loaderClass.add("d-flex");
 
-  await getExchangeRates();
+  const allRatesArr = await getExchangeRates();
 
   loaderClass.add("hidden");
   loaderClass.remove("d-flex");
@@ -42,6 +45,7 @@ async function getExchangeRates() {
       option.textContent = `${code} (${currency})`;
       document.querySelector(".select-currancy").appendChild(option);
     });
+    return allRatesArr;
   } catch (error) {
     console.error(error);
     window.alert(alertText);
@@ -49,13 +53,18 @@ async function getExchangeRates() {
 }
 async function getSpecificRate() {
   try {
-    let code = await checkValue(document.querySelector(".select-currancy"));
+    const code = document.querySelector(".select-currancy").value;
     const data = await fetch(
       `https://api.nbp.pl/api/exchangerates/rates/A/${code}/`
     );
     const dataJson = await data.json();
     const rateCurr = dataJson.rates[0];
-    document.querySelector(".h4").textContent = `${inptValue.valueAsNumber.toFixed(2)} ${code} to ${multiplyValue(inptValue.value, rateCurr.mid)} PLN`;
+    console.log(rateCurr);
+    document.querySelector(
+      ".h4"
+    ).textContent = `${inptValue.valueAsNumber.toFixed(
+      2
+    )} ${code} to ${multiplyValue(inptValue.value, rateCurr.mid)} PLN`;
   } catch (error) {
     console.error(error);
     window.alert(alertText);
