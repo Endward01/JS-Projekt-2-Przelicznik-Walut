@@ -19,7 +19,7 @@ async function loadList() {
   loaderClass.remove("hidden");
   loaderClass.add("d-flex");
 
-  const allRatesArr = await getExchangeRates();
+  await getExchangeRates();
 
   loaderClass.add("hidden");
   loaderClass.remove("d-flex");
@@ -59,7 +59,6 @@ async function getSpecificRate() {
     );
     const dataJson = await data.json();
     const rateCurr = dataJson.rates[0];
-    console.log(rateCurr);
     document.querySelector(
       ".h4"
     ).textContent = `${inptValue.valueAsNumber.toFixed(
